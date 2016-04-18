@@ -22,7 +22,7 @@ cd /Share/chef-courses/cookbooks/nginx
 berks install
 echo unpack archive 
 berks package
-tar -xf $(ls | grep *tar.gz) -C /Share/chef-courses/cookbooks/
+tar -xf $(ls | grep *tar.gz) -C /Share/chef-courses/
 echo Create runlist file
 cat > /root/.chef/runlist.json <<FL
 { 

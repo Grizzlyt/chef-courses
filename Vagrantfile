@@ -16,6 +16,7 @@ log_level :debug
 file_cache_path "/root/.chef/"
 cookbook_path "/Share/chef-courses/cookbooks"
 json_attribs "/root/.chef/runlist.json"
+log_location "/Share/chef-courses/chef-solo.log"
 FL
 echo cd to nginx and run berks install
 cd /Share/chef-courses/cookbooks/nginx

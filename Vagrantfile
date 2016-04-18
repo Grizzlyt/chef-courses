@@ -4,9 +4,9 @@ $vm5_ip="192.168.56.14"
 
 $chef1 = <<EOF
 echo Installing Chef client
-rpm -ivh /Share/chef-12.9.38-1.el6.x86_64.rpm
+rpm -ivh chef-12.9.38-1.el6.x86_64.rpm
 echo Installing Chef SDK
-rpm -ivh /Share/chefdk-0.12.0-1.el6.x86_64.rpm
+rpm -ivh chefdk-0.12.0-1.el6.x86_64.rpm
 echo Create Directories for chef and ssh-keys
 mkdir -p /root/{.chef,cookbooks,.ssh}
 echo Create solo.rb file
@@ -14,15 +14,15 @@ echo Create solo.rb file
 cat > /root/.chef/solo.rb <<FL
 log_level :debug
 file_cache_path "/root/.chef/"
-cookbook_path "/Share/chef/chef-courses/cookbooks"
+cookbook_path "/Share/chef-courses/cookbooks"
 json_attribs "/root/.chef/runlist.json"
 FL
 echo cd to nginx and run berks install
-cd /Share/chef/chef-courses/cookbooks/nginx
+cd /Share/chef-courses/cookbooks/nginx
 berks install
 echo unpack archive 
 berks package
-tar -xf $(ls | grep *tar.gz) -C /Share/chef/chef-courses/cookbooks/
+tar -xf $(ls | grep *tar.gz) -C /Share/chef-courses/cookbooks/
 echo Create runlist file
 cat > /root/.chef/runlist.json <<FL
 { 

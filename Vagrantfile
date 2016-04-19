@@ -65,6 +65,11 @@ Vagrant.configure(2) do |config|
       chef.cookbooks_path = $share_dir+"/chef-courses/cookbooks"
       chef.add_recipe "nginx::default"
       chef.add_recipe "iptables::default"
+      chef.json = {
+        "nginx" => {
+          "default_root" => "/usr/share/nginx/html"
+        }
+      }
     end
     vm6_config.vm.synced_folder $share_dir, "/Share"
   end

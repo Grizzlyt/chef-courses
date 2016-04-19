@@ -1,8 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $vm5_ip="192.168.56.14"
-$vm5_ip="192.168.56.15"
-
+$vm6_ip="192.168.56.15"
+$share_dir="D:/Share"
 $chef1 = <<EOF
 echo Installing Chef client
 rpm -ivh chef-12.9.38-1.el6.x86_64.rpm
@@ -48,7 +48,7 @@ Vagrant.configure(2) do |config|
 		v.customize ["modifyvm", :id, "--memory", 2048] 
 		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 	end
-    vm5_config.vm.synced_folder "D:/Share", "/Share"
+    vm5_config.vm.synced_folder $share_dir, "/Share"
     vm5_config.vm.provision "shell", inline: $chef1
   end
   
@@ -62,10 +62,10 @@ Vagrant.configure(2) do |config|
 		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 	end
     config.vm.provision "chef_solo" do |chef|
-      chef.cookbooks_path = "D:/Share/chef-courses/cookbooks"
+      chef.cookbooks_path = $share_dir+"/chef-courses/cookbooks"
       chef.add_recipe "nginx::default"
       chef.add_recipe "iptables::default"
     end
-    vm6_config.vm.synced_folder "D:/Share", "/Share"
+    vm6_config.vm.synced_folder $share_dir, "/Share"
   end
 end

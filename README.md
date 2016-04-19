@@ -33,4 +33,5 @@ To ensure that only the recipes that you want to test are tested, include them i
 chef-solo -c /root/.chef/solo.rb
 
 P.S. Simply download Vagrant file and execute command vagrant up vm5
-Also in Vagrantfile change source to directory (Example "D:/Share") vm5_config.vm.synced_folder "D:/Share", "/Share"
+Also in Vagrantfile change source to directory (Example "D:/Share") $share_dir="D:/Share"
+for vagrant chef provison execute vagrant uo vm6

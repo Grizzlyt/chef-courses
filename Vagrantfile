@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $vm5_ip="192.168.56.14"
+$vm5_ip="192.168.56.15"
 
 $chef1 = <<EOF
 echo Installing Chef client
@@ -49,5 +50,22 @@ Vagrant.configure(2) do |config|
 	end
     vm5_config.vm.synced_folder "D:/Share", "/Share"
     vm5_config.vm.provision "shell", inline: $chef1
+  end
+  
+    config.vm.define "vm6" do |vm6_config|
+    vm6_config.vm.box = "sbeliakou/centos-6.7-x86_64"
+    vm6_config.vm.network "private_network", ip: $vm6_ip
+    vm6_config.vm.hostname = "vm6.test.com"
+    vm6_config.vm.provider "virtualbox" do |v|
+		v.name = "vm6"
+		v.customize ["modifyvm", :id, "--memory", 2048] 
+		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+	end
+    config.vm.provision "chef_solo" do |chef|
+      chef.cookbooks_path = "D:/Share/chef-courses/cookbooks"
+      chef.add_recipe "nginx::default"
+      chef.add_recipe "iptables::default"
+    end
+    vm6_config.vm.synced_folder "D:/Share", "/Share"
   end
 end
